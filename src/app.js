@@ -1,58 +1,29 @@
 const express = require("express")
 
 const app  = express()
-
-// app.get("/",(req, res)=>{
-//     res.send("not")
-// })
-
-// app.get("/abcd", (req, res) => {
-//     console.log(req.query)
-//     res.send({ firstName: "Parnit", lastName: "Kaur" });
-// });
+const {adminAuth, userAuth} = require("./middlewares/auth")
+app.use("/admin",adminAuth)
 
 
-// app.get("/abcd/:abcdId/:name/:password", (req, res) => {
-//     console.log(req.params)
-//     res.send({ firstName: "Parnit", lastName: "Kaur" });
-// });
 
-// app.get("/ac", (req, res) => {
-//     res.send({ firstName: "Parnit", lastName: "Kaur" });
-// });
+app.get("/user/userLogin", (req,res)=>{
+    res.send("User logged in successfully")
+})
 
 
-// app.get("/user",(req,res)=>{
-//     res.send({firstName: "Manvir", lastName: "Singh"})
-// })
+app.get("/user",userAuth, (req,res)=>{
+    res.send("User data Send")
+})
 
-// app.delete("/user",(req,res)=>{
-//     res.send("User Deleted successfully")
-// })
 
-// app.post("/user",(req,res)=>{
-//     res.send("We Post a new photo on instagram")
-// })
 
-// app.get("/test",(req, res)=>{
-//     res.send("Hiiiiiiii Guys Amerrikkkaa yaaa from express server")
-// })
-// app.get("/Hehehehe",(req, res)=>{
-//     res.send("Muuuuhehehehhehhehhehhehehhehheehehehehhee")
-// })
+app.get("/admin/getAllData", (req,res)=>{
+    res.send("All data Send")
+})
 
-app.use("/user", 
-    (req,res,next) =>{
-         console.log("2nd Response is running")
-          next()
-       res.send("first Response")
-      
-    },
-    (req,res)=>{
-        console.log("2nd Response is running")
-      res.send("second Response")
-    }
-)
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("Deleted a User")
+})
 
 
 app.listen(2103, ()=>{
