@@ -16,8 +16,43 @@ app.post("/signup",async (req,res)=>{
 
 })
 
+//API To get all the users
+app.get("/feed",async (req,res)=>{
+    try{
+    const users = await User.find({})
+    res.send(users)
+    }catch(err){
+     res.status(400).send("Something went wrong")
+    }
+})
 
+//API To get user by email
+app.get("/user",async(req,res)=>{
+    const userEmail = req.body.emailId
+    try{
+      const user = await User.find({emailId : userEmail})
+      if(!user){
+        res.status(400).send("User not found")
+      }else{
+      res.send(user)
+      }
 
+    }
+    catch(err){
+        res.status(400).send("Unable to get the user")
+    }
+})
+
+//API To delete the user
+app.delete("/user",async(req,res)=>{
+    const UserId = req.body.UserId
+    try{
+        const user = await User.findByIdAndDelete({_id : UserId})
+        res.send("User Deleted Succcessfully")
+    } catch(err){
+        res.status(400).send("Unable to delete the user")
+    }
+})
 
 
 
