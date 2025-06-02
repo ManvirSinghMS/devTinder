@@ -54,7 +54,17 @@ app.delete("/user",async(req,res)=>{
     }
 })
 
-
+//API To Update the user
+app.patch("/user",async(req,res)=>{
+    const userId = req.body.userId
+    const data = req.body
+    try{
+        await User.findByIdAndUpdate({_id: userId},data)
+        res.send("User Updated")
+    }catch(err){
+        res.status(400).send("Something went wrong")
+    }
+})
 
 connectDB()
 .then(()=>{
