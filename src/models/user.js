@@ -77,7 +77,7 @@ userSchema.methods.getJWT = async function () {
   });
 
   return token;
-};
+};  
 
 userSchema.methods.validatePassword = async function (passwordInputByUser) {
     const user = this;
